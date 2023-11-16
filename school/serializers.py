@@ -13,3 +13,9 @@ class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Course
         fields = '__all__'
+
+
+class ClassSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Class
+        fields = '__all__'
