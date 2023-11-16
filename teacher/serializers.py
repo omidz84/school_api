@@ -7,7 +7,7 @@ from rest_framework import serializers
 
 from user.models import User
 from user.utils import get_tokens
-from user.serializers import GroupSerializer
+from user.serializers import GroupSerializer, UserSerializer
 
 
 class TeacherRegisterSerializer(serializers.ModelSerializer):
@@ -61,3 +61,40 @@ class TeacherRegisterSerializer(serializers.ModelSerializer):
         group = Group.objects.get(name='معلم')
         group.user_set.add(user)
         return user
+
+
+class TeacherLoginSerializer(serializers.Serializer):
+    username = serializers.CharField(required=True, label=_('username'), write_only=True)
+    password = serializers.CharField(required=True, label=_('password'), min_length=8, write_only=True)
+    user = serializers.SerializerMethodField(read_only=True, label=_('user'))
+    token = serializers.SerializerMethodField(read_only=True, label=_('user'))
+
+    def validate(self, data):
+        username = data.get('username')
+        password = data.get('password')
+        try:
+            user = User.objects.get(username=username)
+            if user.check_password(password) and user.is_active:
+                return data
+            raise ValidationError(_('The username or password is not valid'))
+        except:
+            raise ValidationError(_('The username or password is not valid'))
+
+    def get_user(self, obj):
+        try:
+            user = User.objects.get(username=obj['username'])
+            user = UserSerializer(instance=user)
+            return user.data
+        except:
+            raise ValidationError(_('The username or password is not valid'))
+
+    def get_token(self, obj):
+        try:
+            user = User.objects.get(username=obj['username'])
+            token = get_tokens(user)
+            refresh = token['refresh']
+            access = token['access']
+            settings.REDIS_JWT_TOKEN.set(name=refresh, value=refresh, ex=settings.REDIS_REFRESH_TIME)
+            return {'access': access, 'refresh': refresh}
+        except:
+            raise ValidationError(_('The username or password is not valid'))
