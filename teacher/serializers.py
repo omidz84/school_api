@@ -8,6 +8,7 @@ from rest_framework import serializers
 from user.models import User
 from user.utils import get_tokens
 from user.serializers import GroupSerializer
+from school import models
 
 
 class TeacherRegisterSerializer(serializers.ModelSerializer):
@@ -61,3 +62,21 @@ class TeacherRegisterSerializer(serializers.ModelSerializer):
         group = Group.objects.get(name='معلم')
         group.user_set.add(user)
         return user
+
+
+class ClassAddStudentSerializer(serializers.ModelSerializer):
+    code_meli = serializers.CharField(required=True, label=_('code meli'))
+    class Meta:
+        model = models.Class
+        fields = ['id', 'code_meli']
+
+    def update(self, instance, validated_data):
+        try:
+            student = User.objects.get(code_meli=validated_data['code_meli'])
+            Class = instance
+            Class.students.add(student)
+            Class.save()
+            return instance
+        except:
+            raise ValidationError(_('code meli invalid.'))
+
