@@ -154,6 +154,6 @@ SIMPLE_JWT = {
 # redis jwt token
 REDIS_HOST = config('REDIS_HOST')
 REDIS_PORT = config('REDIS_PORT')
-REDIS_REFRESH_TIME = 24 * (60 * 60)
+REDIS_REFRESH_TIME = timedelta(days=1)
 REDIS_JWT_TOKEN = redis.StrictRedis(host=REDIS_HOST,
                                     port=REDIS_PORT, db=0)
