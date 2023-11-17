@@ -8,5 +8,6 @@ urlpatterns = [
     path('api/school/', include('school.urls')),
     path('api/teacher/', include('teacher.urls')),
     path('api/user/', include('user.urls')),
+    path('api/student/', include('student.urls')),
 ]
 urlpatterns = urlpatterns+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
