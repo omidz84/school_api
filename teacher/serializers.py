@@ -103,3 +103,15 @@ class ClassAddStudentSerializer(serializers.ModelSerializer):
         except:
             raise ValidationError(_('code meli invalid.'))
 
+
+class NewsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.News
+        fields = '__all__'
+
+
+class PracticeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Practice
+        fields = '__all__'
+

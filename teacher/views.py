@@ -29,3 +29,13 @@ class ClassAddStudentView(UpdateAPIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response({'msg': _('student add to class.')}, status.HTTP_200_OK)
+
+
+class NewsView(CreateAPIView):
+    queryset = models.News.objects.all()
+    serializer_class = serializers.NewsSerializer
+
+
+class PracticeView(CreateAPIView):
+    queryset = models.Practice.objects.all()
+    serializer_class = serializers.PracticeSerializer
