@@ -39,3 +39,14 @@ class NewsView(CreateAPIView):
 class PracticeView(CreateAPIView):
     queryset = models.Practice.objects.all()
     serializer_class = serializers.PracticeSerializer
+
+
+class NewsUpdateView(RetrieveUpdateAPIView):
+    queryset = models.News.objects.all()
+    serializer_class = serializers.NewsSerializer
+
+
+class PracticeUpdateView(RetrieveUpdateAPIView):
+    queryset = models.Practice.objects.all()
+    serializer_class = serializers.PracticeSerializer
+
