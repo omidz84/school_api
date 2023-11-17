@@ -62,7 +62,7 @@ class Practice(models.Model):
 
 class PracticeResponse(models.Model):
     body = models.TextField(verbose_name=_('body'))
-    file = models.FileField(upload_to='Practice/', validators=[validate_file_extension], null=True, blank=True, verbose_name=_('file'))
+    file = models.FileField(upload_to='Practice/response/', validators=[validate_file_extension], null=True, blank=True, verbose_name=_('file'))
     practice = models.ForeignKey(to=Practice, on_delete=models.CASCADE, verbose_name=_('practice'))
     student = models.ForeignKey(to=User, on_delete=models.CASCADE, verbose_name=_('student'))
     created_at = models.DateTimeField(auto_now_add=True, verbose_name=_('created at'))
