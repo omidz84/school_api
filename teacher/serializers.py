@@ -65,10 +65,17 @@ class TeacherRegisterSerializer(serializers.ModelSerializer):
 
 
 class ClassAddStudentSerializer(serializers.ModelSerializer):
-    code_meli = serializers.CharField(required=True, label=_('code meli'))
+    code_meli = serializers.CharField(required=True, label=_('code meli'), write_only=True)
     class Meta:
         model = models.Class
         fields = ['id', 'code_meli']
+
+    def validate_code_meli(self, data):
+        try:
+            student = User.objects.get(code_meli=data)
+            return data
+        except User.DoesNotExist:
+            raise ValidationError(_('code meli invalid.'))
 
     def update(self, instance, validated_data):
         try:
