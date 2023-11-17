@@ -7,8 +7,9 @@ from rest_framework import serializers
 
 from user.models import User
 from user.utils import get_tokens
-from user.serializers import GroupSerializer
+from user.serializers import GroupSerializer, UserSerializer
 from school import models
+from school.serializers import SchoolSerializer, CourseSerializer
 
 
 class StudentRegisterSerializer(serializers.ModelSerializer):
@@ -79,3 +80,11 @@ class StudentProfileSerializer(serializers.ModelSerializer):
             'groups',
         ]
 
+
+class StudentClassSerializer(serializers.ModelSerializer):
+    school = SchoolSerializer()
+    teacher = UserSerializer()
+    course = CourseSerializer()
+    class Meta:
+        model = models.Class
+        fields = ['school', 'teacher', 'course']
