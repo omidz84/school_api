@@ -1,7 +1,7 @@
 from django.utils.translation import gettext as _
 from rest_framework import status
 
-from rest_framework.generics import CreateAPIView, UpdateAPIView
+from rest_framework.generics import CreateAPIView, UpdateAPIView, RetrieveUpdateAPIView
 from rest_framework.request import Request
 from rest_framework.response import Response
 
@@ -13,6 +13,11 @@ from school import models
 class TeacherRegisterView(CreateAPIView):
     queryset = User.objects.all()
     serializer_class = serializers.TeacherRegisterSerializer
+
+
+class TeacherProfileView(RetrieveUpdateAPIView):
+    queryset = User.objects.all()
+    serializer_class = serializers.TeacherProfileSerializer
 
 
 class ClassAddStudentView(UpdateAPIView):

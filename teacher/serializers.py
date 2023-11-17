@@ -64,6 +64,22 @@ class TeacherRegisterSerializer(serializers.ModelSerializer):
         return user
 
 
+class TeacherProfileSerializer(serializers.ModelSerializer):
+    groups = GroupSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = User
+        fields = [
+            'id',
+            'first_name',
+            'last_name',
+            'username',
+            'phone_number',
+            'code_meli',
+            'groups',
+        ]
+
+
 class ClassAddStudentSerializer(serializers.ModelSerializer):
     code_meli = serializers.CharField(required=True, label=_('code meli'), write_only=True)
     class Meta:
