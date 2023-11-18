@@ -1,5 +1,5 @@
 from rest_framework import status
-from rest_framework.generics import CreateAPIView, RetrieveUpdateAPIView, GenericAPIView
+from rest_framework.generics import CreateAPIView, RetrieveUpdateAPIView, GenericAPIView, RetrieveAPIView
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import AccessToken
@@ -48,3 +48,29 @@ class StudentNewsView(GenericAPIView):
             return Response(s_news.data, status.HTTP_200_OK)
         except:
             return Response({'msg': 'Token invalid'}, status.HTTP_400_BAD_REQUEST)
+
+
+class DetailNewsView(RetrieveAPIView):
+    queryset = models.News.objects.all()
+    serializer_class = serializers.StudentNewsSerializer
+
+
+class StudentPracticeView(GenericAPIView):
+    serializer_class = serializers.StudentPracticeSerializer
+
+    def get(self, request: Request):
+        try:
+            token = request.META.get('HTTP_AUTHORIZATION')
+            decoded_token = AccessToken(token)
+            user = User.objects.get(id=decoded_token["user_id"])
+            Class = models.Class.objects.filter(students=user)
+            practice = models.Practice.objects.filter(class_id__in=Class)
+            s_practice = self.serializer_class(instance=practice, many=True)
+            return Response(s_practice.data, status.HTTP_200_OK)
+        except:
+            return Response({'msg': 'Token invalid'}, status.HTTP_400_BAD_REQUEST)
+
+
+class DetailPracticeView(RetrieveAPIView):
+    queryset = models.Practice.objects.all()
+    serializer_class = serializers.StudentPracticeSerializer
