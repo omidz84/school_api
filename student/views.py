@@ -33,3 +33,18 @@ class StudentClassView(GenericAPIView):
         except:
             return Response({'msg': 'Token invalid'}, status.HTTP_400_BAD_REQUEST)
 
+
+class StudentNewsView(GenericAPIView):
+    serializer_class = serializers.StudentNewsSerializer
+
+    def get(self, request: Request):
+        try:
+            token = request.META.get('HTTP_AUTHORIZATION')
+            decoded_token = AccessToken(token)
+            user = User.objects.get(id=decoded_token["user_id"])
+            Class = models.Class.objects.filter(students=user)
+            news = models.News.objects.filter(class_id__in=Class)
+            s_news = self.serializer_class(instance=news, many=True)
+            return Response(s_news.data, status.HTTP_200_OK)
+        except:
+            return Response({'msg': 'Token invalid'}, status.HTTP_400_BAD_REQUEST)
