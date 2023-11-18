@@ -85,6 +85,15 @@ class StudentClassSerializer(serializers.ModelSerializer):
     school = SchoolSerializer()
     teacher = UserSerializer()
     course = CourseSerializer()
+
     class Meta:
         model = models.Class
         fields = ['school', 'teacher', 'course']
+
+
+class StudentNewsSerializer(serializers.ModelSerializer):
+    class_id = StudentClassSerializer()
+
+    class Meta:
+        model = models.News
+        fields = ['title', 'body', 'class_id', 'created_at', 'updated_at']
