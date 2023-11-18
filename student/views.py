@@ -4,6 +4,7 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import AccessToken
 
+from user.permissions import CustomModelPermissions, IsOwner, IsUser
 from . import serializers
 from user.models import User
 from school import models
@@ -15,11 +16,13 @@ class StudentRegisterView(CreateAPIView):
 
 
 class StudentProfileView(RetrieveUpdateAPIView):
+    permission_classes = [IsUser]
     queryset = User.objects.all()
     serializer_class = serializers.StudentProfileSerializer
 
 
 class StudentClassView(GenericAPIView):
+    permission_classes = [CustomModelPermissions]
     serializer_class = serializers.StudentClassSerializer
 
     def get(self, request: Request):
@@ -35,6 +38,7 @@ class StudentClassView(GenericAPIView):
 
 
 class StudentNewsView(GenericAPIView):
+    permission_classes = [CustomModelPermissions]
     serializer_class = serializers.StudentNewsSerializer
 
     def get(self, request: Request):
@@ -51,11 +55,13 @@ class StudentNewsView(GenericAPIView):
 
 
 class DetailNewsView(RetrieveAPIView):
+    permission_classes = [CustomModelPermissions]
     queryset = models.News.objects.all()
     serializer_class = serializers.StudentNewsSerializer
 
 
 class StudentPracticeView(GenericAPIView):
+    permission_classes = [CustomModelPermissions]
     serializer_class = serializers.StudentPracticeSerializer
 
     def get(self, request: Request):
@@ -72,5 +78,19 @@ class StudentPracticeView(GenericAPIView):
 
 
 class DetailPracticeView(RetrieveAPIView):
+    permission_classes = [CustomModelPermissions]
     queryset = models.Practice.objects.all()
     serializer_class = serializers.StudentPracticeSerializer
+
+
+class StudentPracticeResponseView(CreateAPIView):
+    permission_classes = [CustomModelPermissions]
+    queryset = models.PracticeResponse.objects.all()
+    serializer_class = serializers.StudentPracticeResponseSerializer
+
+
+class DetailStudentPracticeResponseView(RetrieveUpdateAPIView):
+    permission_classes = [CustomModelPermissions]
+    queryset = models.PracticeResponse.objects.all()
+    serializer_class = serializers.StudentPracticeResponseSerializer
+

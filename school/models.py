@@ -1,8 +1,9 @@
-from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext as _
 from django.contrib.gis.db import models as model
+
+from rest_framework.validators import ValidationError
 
 from user.models import User
 from .validators import validate_file_extension
@@ -71,10 +72,11 @@ class PracticeResponse(models.Model):
     def __str__(self):
         return f'{self.student.username} | {self.practice.__str__()}'
 
-    def clean(self):
+    def save(self, *args, **kwargs):
         dat_now = timezone.now().day
         day_Submission_deadline = self.practice.Submission_deadline.day
         month_now = timezone.now().month
         month_Submission_deadline = self.practice.Submission_deadline.month
         if dat_now > day_Submission_deadline or month_now > month_Submission_deadline:
-            raise ValidationError('The time for sending the practice has ended')
+            raise ValidationError(_('The time for sending the practice has ended.'))
+        return super().save(*args, **kwargs)

@@ -105,3 +105,10 @@ class StudentPracticeSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Practice
         fields = ['title', 'body', 'file', 'class_id', 'Submission_deadline', 'created_at', 'updated_at']
+
+
+class StudentPracticeResponseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.PracticeResponse
+        fields = '__all__'
+

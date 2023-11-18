@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'teacher',
     'student',
     'school',
+    'check_system_init',
 ]
 
 MIDDLEWARE = [
