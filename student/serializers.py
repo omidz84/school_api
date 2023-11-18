@@ -97,3 +97,11 @@ class StudentNewsSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.News
         fields = ['title', 'body', 'class_id', 'created_at', 'updated_at']
+
+
+class StudentPracticeSerializer(serializers.ModelSerializer):
+    class_id = StudentClassSerializer()
+
+    class Meta:
+        model = models.Practice
+        fields = ['title', 'body', 'file', 'class_id', 'Submission_deadline', 'created_at', 'updated_at']
