@@ -1,0 +1,42 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-11-19 10:04+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+#: teacher/serializers.py:15
+msgid "confirm password"
+msgstr "تکرار رمز عبور"
+
+#: teacher/serializers.py:17
+msgid "token"
+msgstr "توکن"
+
+#: teacher/serializers.py:42
+msgid "The passwords must match"
+msgstr "رمزهای عبور باید مطابقت داشته باشند"
+
+#: teacher/serializers.py:84
+msgid "code meli"
+msgstr "کدملی"
+
+#: teacher/serializers.py:94 teacher/serializers.py:104
+msgid "code meli invalid."
+msgstr "کدملی نامعتبر است"
+
+#: teacher/views.py:34
+msgid "student add to class."
+msgstr "دانش آموز با موفقیت به کلاس اضافه شد"

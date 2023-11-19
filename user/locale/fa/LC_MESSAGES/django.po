@@ -1,0 +1,66 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-11-19 10:14+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: user/models.py:31
+msgid "phone number"
+msgstr "شماره موبایل"
+
+#: user/models.py:38
+msgid "code meli"
+msgstr "کد ملی"
+
+#: user/models.py:50 user/serializers.py:37 user/serializers.py:38
+msgid "user"
+msgstr "کاربر"
+
+#: user/models.py:51
+msgid "users"
+msgstr "کاربران"
+
+#: user/serializers.py:35
+msgid "username"
+msgstr "نام کاربری"
+
+#: user/serializers.py:36
+msgid "password"
+msgstr "رمز عبور"
+
+#: user/serializers.py:47 user/serializers.py:49 user/serializers.py:57
+#: user/serializers.py:68
+msgid "The username or password is not valid"
+msgstr "نام کاربری یا رمز عبور معتبر نیست"
+
+#: user/serializers.py:72
+msgid "refresh"
+msgstr "رفرش"
+
+#: user/serializers.py:79
+msgid "Token is invalid or expired"
+msgstr "توکن نامعتبر است یا منقضی شده است"
+
+#: user/validators.py:27
+#, fuzzy
+#| msgid "The username or password is not valid"
+msgid "The username is not valid"
+msgstr "نام کاربری یا رمز عبور معتبر نیست"
+
+#: user/views.py:26
+msgid "logout OK."
+msgstr "خروج موفق"

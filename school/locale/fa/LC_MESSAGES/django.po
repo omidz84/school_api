@@ -1,0 +1,123 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-11-19 10:11+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: school/models.py:15
+msgid "School name"
+msgstr "نام مدرسه"
+
+#: school/models.py:16
+msgid "School address"
+msgstr "آدرس مدرسه"
+
+#: school/models.py:17
+msgid "Location"
+msgstr "لوکیشن"
+
+#: school/models.py:23 school/models.py:39
+msgid "school"
+msgstr "مدرسه"
+
+#: school/models.py:24
+msgid "schools"
+msgstr "مدرسه ها"
+
+#: school/models.py:28
+msgid "Course name"
+msgstr "نام درس"
+
+#: school/models.py:34
+msgid "Course"
+msgstr "درس"
+
+#: school/models.py:35
+msgid "Courses"
+msgstr "درس ها"
+
+#: school/models.py:40
+msgid "teacher"
+msgstr "معلم"
+
+#: school/models.py:41
+msgid "course"
+msgstr "درس"
+
+#: school/models.py:42
+msgid "students"
+msgstr "دانش آموز ها"
+
+#: school/models.py:48 school/models.py:55 school/models.py:71
+msgid "class"
+msgstr "کلاس"
+
+#: school/models.py:49
+msgid "classes"
+msgstr "کلاس ها"
+
+#: school/models.py:53 school/models.py:68
+msgid "Title"
+msgstr "عنوان"
+
+#: school/models.py:54 school/models.py:69 school/models.py:85
+msgid "body"
+msgstr "بدنه متن"
+
+#: school/models.py:56 school/models.py:73 school/models.py:89
+msgid "created at"
+msgstr "تاریخ ایجاد"
+
+#: school/models.py:57 school/models.py:74 school/models.py:90
+msgid "updated at"
+msgstr "تارخ ویرایش"
+
+#: school/models.py:63 school/models.py:64
+msgid "News"
+msgstr "اخبار"
+
+#: school/models.py:70 school/models.py:86
+msgid "file"
+msgstr "فایل"
+
+#: school/models.py:72
+msgid "Submission deadline"
+msgstr "مهلت ارسال"
+
+#: school/models.py:80
+msgid "Practice"
+msgstr "تمرین"
+
+#: school/models.py:81
+msgid "Practices"
+msgstr "تمرین ها"
+
+#: school/models.py:87
+msgid "practice"
+msgstr "تمرین"
+
+#: school/models.py:88
+msgid "student"
+msgstr "دانش آموز"
+
+#: school/models.py:96 school/models.py:97
+msgid "Practice Response"
+msgstr "پاسخ تمرین"
+
+#: school/models.py:105
+msgid "The time for sending the practice has ended."
+msgstr "زمان ارسال تمرین به پایان رسیده است."

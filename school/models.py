@@ -19,12 +19,20 @@ class School(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name = _('school')
+        verbose_name_plural = _('schools')
+
 
 class Course(models.Model):
     name = models.CharField(max_length=350, unique=True, db_index=True, verbose_name=_('Course name'))
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name = _('Course')
+        verbose_name_plural = _('Courses')
 
 
 class Class(models.Model):
@@ -36,6 +44,10 @@ class Class(models.Model):
     def __str__(self):
         return f'{self.school.name} | {self.teacher.username} | {self.course.name}'
 
+    class Meta:
+        verbose_name = _('class')
+        verbose_name_plural = _('classes')
+
 
 class News(models.Model):
     title = models.CharField(max_length=500, db_index=True, verbose_name=_('Title'))
@@ -46,6 +58,10 @@ class News(models.Model):
 
     def __str__(self):
         return f'{self.title} | {self.class_id.__str__()}'
+
+    class Meta:
+        verbose_name = _('News')
+        verbose_name_plural = _('News')
 
 
 class Practice(models.Model):
@@ -60,6 +76,10 @@ class Practice(models.Model):
     def __str__(self):
         return f'{self.title} | {self.class_id.__str__()}'
 
+    class Meta:
+        verbose_name = _('Practice')
+        verbose_name_plural = _('Practices')
+
 
 class PracticeResponse(models.Model):
     body = models.TextField(verbose_name=_('body'))
@@ -71,6 +91,10 @@ class PracticeResponse(models.Model):
 
     def __str__(self):
         return f'{self.student.username} | {self.practice.__str__()}'
+
+    class Meta:
+        verbose_name = _('Practice Response')
+        verbose_name_plural = _('Practice Response')
 
     def save(self, *args, **kwargs):
         dat_now = timezone.now().day

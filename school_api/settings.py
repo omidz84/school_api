@@ -1,3 +1,5 @@
+import os
+
 import redis
 from datetime import timedelta
 from pathlib import Path
@@ -33,6 +35,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'django_filters',
+    'drf_yasg',
 
     'user',
     'teacher',
@@ -49,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'check_system_init.middleware.LanguageMiddleware'
 ]
 
 ROOT_URLCONF = 'school_api.urls'
@@ -148,7 +152,7 @@ REST_FRAMEWORK = {
 }
 
 SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=15),
     "REFRESH_TOKEN_LIFETIME": timedelta(hours=24),
 }
 
@@ -158,3 +162,7 @@ REDIS_PORT = config('REDIS_PORT')
 REDIS_REFRESH_TIME = timedelta(days=1)
 REDIS_JWT_TOKEN = redis.StrictRedis(host=REDIS_HOST,
                                     port=REDIS_PORT, db=0)
+
+LOCALE_PATHS = (
+    os.path.join(os.path.dirname(__file__), "locale"),
+)
