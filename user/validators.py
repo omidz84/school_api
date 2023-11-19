@@ -24,7 +24,7 @@ def check_phone(value: str) -> str:
     if bool(patter4.match(value)):
         return "0" + value[3:]
 
-    raise ValidationError(_('The phone number is not valid'))
+    raise ValidationError(_('The username is not valid'))
 
 
 def isnumeric(value: str) -> bool:

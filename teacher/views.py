@@ -5,7 +5,7 @@ from rest_framework.generics import CreateAPIView, UpdateAPIView, RetrieveUpdate
 from rest_framework.request import Request
 from rest_framework.response import Response
 
-from user.permissions import CustomModelPermissions, IsOwner, IsUser
+from user.permissions import CustomModelPermissions, IsOwner, IsUser, IsTeacher
 from . import serializers
 from user.models import User
 from school import models
@@ -23,7 +23,7 @@ class TeacherProfileView(RetrieveUpdateAPIView):
 
 
 class ClassAddStudentView(UpdateAPIView):
-    permission_classes = [CustomModelPermissions]
+    permission_classes = [CustomModelPermissions, IsTeacher]
     queryset = models.Class.objects.all()
     serializer_class = serializers.ClassAddStudentSerializer
 

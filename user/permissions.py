@@ -1,7 +1,4 @@
 from rest_framework.permissions import BasePermission, DjangoModelPermissions
-from rest_framework_simplejwt.tokens import AccessToken
-
-from user.models import User
 
 
 class IsOwner(BasePermission):
@@ -14,6 +11,12 @@ class IsUser(BasePermission):
 
     def has_object_permission(self, request, view, obj):
         return bool(request.user == obj)
+
+
+class IsTeacher(BasePermission):
+
+    def has_object_permission(self, request, view, obj):
+        return bool(request.user == obj.teacher)
 
 
 class CustomModelPermissions(DjangoModelPermissions):
