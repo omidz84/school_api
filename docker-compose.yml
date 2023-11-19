@@ -5,7 +5,7 @@ services:
     school-api-redis:
         image: redis:latest
         container_name: school-api_redis
-        hostname: school-api_redis
+        hostname: school_api_redis
         env_file:
             - .env
         ports:
@@ -21,7 +21,7 @@ services:
 
 #Postgres-----------------------------------------------------------------------------------------
     school-api-postgres:
-        image: postgres:latest
+        image: postgis/postgis:latest
         container_name: school_api_postgresql
         hostname: school_api_postgresql
         environment: 
