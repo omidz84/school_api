@@ -2,9 +2,8 @@ from rest_framework import status
 from rest_framework.generics import CreateAPIView, RetrieveUpdateAPIView, GenericAPIView, RetrieveAPIView
 from rest_framework.request import Request
 from rest_framework.response import Response
-from rest_framework_simplejwt.tokens import AccessToken
 
-from user.permissions import CustomModelPermissions, IsOwner, IsUser
+from user.permissions import CustomModelPermissions, IsUser
 from . import serializers
 from user.models import User
 from school import models
@@ -22,14 +21,11 @@ class StudentProfileView(RetrieveUpdateAPIView):
 
 
 class StudentClassView(GenericAPIView):
-    permission_classes = [CustomModelPermissions]
     serializer_class = serializers.StudentClassSerializer
 
     def get(self, request: Request):
         try:
-            token = request.META.get('HTTP_AUTHORIZATION')
-            decoded_token = AccessToken(token)
-            user = User.objects.get(id=decoded_token["user_id"])
+            user = request.user
             Class = models.Class.objects.filter(students=user)
             s_class = self.serializer_class(instance=Class, many=True)
             return Response(s_class.data, status.HTTP_200_OK)
@@ -38,14 +34,11 @@ class StudentClassView(GenericAPIView):
 
 
 class StudentNewsView(GenericAPIView):
-    permission_classes = [CustomModelPermissions]
     serializer_class = serializers.StudentNewsSerializer
 
     def get(self, request: Request):
         try:
-            token = request.META.get('HTTP_AUTHORIZATION')
-            decoded_token = AccessToken(token)
-            user = User.objects.get(id=decoded_token["user_id"])
+            user = request.user
             Class = models.Class.objects.filter(students=user)
             news = models.News.objects.filter(class_id__in=Class)
             s_news = self.serializer_class(instance=news, many=True)
@@ -61,14 +54,11 @@ class DetailNewsView(RetrieveAPIView):
 
 
 class StudentPracticeView(GenericAPIView):
-    permission_classes = [CustomModelPermissions]
     serializer_class = serializers.StudentPracticeSerializer
 
     def get(self, request: Request):
         try:
-            token = request.META.get('HTTP_AUTHORIZATION')
-            decoded_token = AccessToken(token)
-            user = User.objects.get(id=decoded_token["user_id"])
+            user = request.user
             Class = models.Class.objects.filter(students=user)
             practice = models.Practice.objects.filter(class_id__in=Class)
             s_practice = self.serializer_class(instance=practice, many=True)

@@ -4,6 +4,7 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import gettext as _
 
 from rest_framework import serializers
+from rest_framework_simplejwt.tokens import RefreshToken
 
 from .models import User
 from .utils import get_tokens
@@ -78,3 +79,25 @@ class UserLogoutSerializer(serializers.Serializer):
         else:
             raise ValidationError(_('Token is invalid or expired'))
 
+
+class RefreshTokenSerializer(serializers.Serializer):
+    refresh = serializers.CharField(max_length=1000, required=True, label=_('refresh'), write_only=True)
+    token = serializers.SerializerMethodField(read_only=True, label=_('token'))
+
+    def validate_refresh(self, data):
+        if settings.REDIS_JWT_TOKEN.get(name=data):
+            return data
+        else:
+            raise ValidationError(_('Token is invalid or expired'))
+
+    def get_token(self, obj):
+        refresh = settings.REDIS_JWT_TOKEN.get(name=obj['refresh'])
+        token_refresh = RefreshToken(refresh)
+        user = User.objects.get(id=token_refresh['user_id'])
+        settings.REDIS_JWT_TOKEN.delete(refresh)
+        token = get_tokens(user)
+        access = token['access']
+        refresh = token['refresh']
+        settings.REDIS_JWT_TOKEN.set(name=refresh, value=refresh, ex=settings.REDIS_REFRESH_TIME)
+        data = {'access': access, 'refresh': refresh}
+        return data

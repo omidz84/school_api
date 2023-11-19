@@ -24,3 +24,12 @@ class UserLogoutView(GenericAPIView):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
         return Response({'msg': _('logout OK.')}, status.HTTP_200_OK)
+
+
+class RefreshTokenView(GenericAPIView):
+    serializer_class = serializers.RefreshTokenSerializer
+
+    def post(self, request: Request):
+        serializer = self.serializer_class(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        return Response(serializer.data, status.HTTP_200_OK)
