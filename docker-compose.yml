@@ -1,0 +1,75 @@
+version: '3.7'
+
+services: 
+#Redis-----------------------------------------------------------------------------------------
+    school-api-redis:
+        image: redis:latest
+        container_name: school-api_redis
+        hostname: school_api_redis
+        env_file:
+            - .env
+        ports:
+            - "6379:6379"
+        volumes:
+            - school_api_redis_data:/data
+        networks:
+            - school_api
+        # command: ["sh", "-c", "rm -f /data/dump.rdb && redis-server --save '' --appendonly no --requirepass $PASSWORD_REDIS"]
+        command: ["sh", "-c", "rm -f /data/dump.rdb && redis-server --save '' --appendonly no "]
+        restart: on-failure
+
+
+#Postgres-----------------------------------------------------------------------------------------
+    school-api-postgres:
+        image: postgis/postgis:latest
+        container_name: school_api_postgresql
+        hostname: school_api_postgresql
+        environment: 
+            - POSTGRES_DB=school_api_db
+            - POSTGRES_USER=school_api_user
+            - POSTGRES_PASSWORD=hdfjhsfhsdfg
+        ports:
+            - "5432:5432"
+        volumes:
+            - school_api_postgresql_data:/var/lib/postgresql/data
+        networks:
+            - school_api
+        restart: on-failure
+
+#API-----------------------------------------------------------------------------------------
+    school-api:
+        image: school-api:latest
+        container_name: school_api
+        hostname: school_api
+        depends_on: 
+            - school-api-postgres
+            - school-api-redis
+        ports:
+            - "8088:8088"
+        # command: ["ping", "8.8.8.8"]
+        env_file: 
+            - .env
+        volumes:
+            - school_api_media_data:/app/media
+            - school_api_static_data:/app/static
+        networks:
+            - school_api
+        restart: on-failure
+
+
+
+volumes: 
+    school_api_media_data:
+        external: true
+    school_api_static_data:
+        external: true
+    school_api_postgresql_data:
+        external: true
+    school_api_redis_data:
+        external: true
+          
+
+networks:
+    school_api:
+        external: true
+        name: school_api_net
