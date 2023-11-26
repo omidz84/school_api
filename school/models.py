@@ -98,9 +98,9 @@ class PracticeResponse(models.Model):
 
     def save(self, *args, **kwargs):
         day_now = timezone.now().day
-        day_Submission_deadline = self.practice.Submission_deadline.day
+        day_submission_deadline = self.practice.Submission_deadline.day
         month_now = timezone.now().month
         month_Submission_deadline = self.practice.Submission_deadline.month
-        if day_now > day_Submission_deadline or month_now > month_Submission_deadline:
+        if day_now > day_submission_deadline or month_now > month_Submission_deadline:
             raise ValidationError(_('The time for sending the practice has ended.'))
         return super().save(*args, **kwargs)

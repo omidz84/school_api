@@ -14,7 +14,7 @@ class UserLoginView(GenericAPIView):
     def post(self, request: Request):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
-        return Response(serializer.data)
+        return Response(serializer.data, status.HTTP_200_OK)
 
 
 class UserLogoutView(GenericAPIView):
