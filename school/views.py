@@ -27,3 +27,8 @@ class ClassView(ListCreateAPIView):
     queryset = models.Class.objects.all()
     serializer_class = serializers.ClassSerializer
 
+
+class ClassDetailView(RetrieveUpdateDestroyAPIView):
+    queryset = models.Class.objects.all()
+    serializer_class = serializers.ClassSerializer
+
