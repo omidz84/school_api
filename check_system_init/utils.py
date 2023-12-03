@@ -13,7 +13,7 @@ def group_student():
 
 
 def group_teacher():
-    g_student, x = Group.objects.get_or_create(name='معلم')
+    g_teacher, x = Group.objects.get_or_create(name='معلم')
 
     permissions_list = [
         'view_practiceresponse', 'view_school', 'delete_school', 'change_school',
@@ -24,4 +24,4 @@ def group_teacher():
         'add_class',
     ]
     permissions = Permission.objects.filter(codename__in=permissions_list)
-    g_student.permissions.set(permissions)
+    g_teacher.permissions.set(permissions)
