@@ -1,9 +1,12 @@
 import subprocess
 
+from django.core.management import call_command
 from rest_framework.test import APITestCase
 from rest_framework import status
 
 from school import models
+from teacher.serializers import TeacherRegisterSerializer
+from student.serializers import StudentRegisterSerializer
 
 
 class SchoolTest(APITestCase):
@@ -97,3 +100,58 @@ class CourseTest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
 
+class ClassTest(APITestCase):
+    def setUp(self):
+        call_command('checksysteminit')
+        teacher = TeacherRegisterSerializer(data={
+            'first_name': 'omid',
+            'last_name': 'zare',
+            'username': 'omid123',
+            'phone_number': '09140695029',
+            'code_meli': '4426598453',
+            'password': '123456789',
+            'password2': '123456789',
+        })
+        teacher.is_valid()
+        teacher.save()
+        student = StudentRegisterSerializer(data={
+            'first_name': 'hasan',
+            'last_name': 'hasani',
+            'username': 'hasan123',
+            'phone_number': '09132226985',
+            'code_meli': '44165759',
+            'password': '123456789',
+            'password2': '123456789',
+        })
+        student.is_valid()
+        student.save()
+        course = models.Course.objects.create(
+            id=1,
+            name='فیزیک',
+        )
+        school = models.School.objects.create(
+            id=1,
+            name='مدرسه',
+            address='ایران',
+            location='{"type": "point", "coordinates": [10.0, 11.2]}'
+        )
+        self.valid_data_class = {
+            'school': school.pk,
+            'course': course.pk,
+            'teacher': teacher.data['id'],
+            'students': student.data['id'],
+        }
+        self.invalid_data_class = {
+            'school': 4,
+            'course': 2,
+            'teacher': 7,
+            'students': 6,
+        }
+
+    def test_create_course_valid(self):
+        response = self.client.post('/api/school/class/', self.valid_data_class)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+    def test_create_course_invalid(self):
+        response = self.client.post('/api/school/class/', self.invalid_data_class)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
