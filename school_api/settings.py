@@ -35,7 +35,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'django_filters',
-    'drf_yasg',
+    'drf_spectacular',
 
     'user',
     'teacher',
@@ -148,7 +148,8 @@ REST_FRAMEWORK = {
         'rest_framework.filters.SearchFilter'
     ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
-    'PAGE_SIZE': 15
+    'PAGE_SIZE': 15,
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
 SIMPLE_JWT = {
@@ -166,3 +167,10 @@ REDIS_JWT_TOKEN = redis.StrictRedis(host=REDIS_HOST,
 LOCALE_PATHS = (
     os.path.join(os.path.dirname(__file__), "locale"),
 )
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'School API',
+    'DESCRIPTION': 'School API description',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+}
