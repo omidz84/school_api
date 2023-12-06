@@ -1,5 +1,3 @@
-import subprocess
-
 from django.core.management import call_command
 from rest_framework.test import APITestCase
 from rest_framework import status
